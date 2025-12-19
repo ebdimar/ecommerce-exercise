@@ -2,12 +2,19 @@ import { products } from "./products.js";
 import { addProduct, increaseQuantity } from "./helpers.js";
 
 const addButtons = document.querySelectorAll(".add-to-cart");
+const clearCartButton = document.getElementById("clean-cart");
 
 addButtons.forEach((element) => {
   element.addEventListener("click", (event) => {
     const id = event.target.dataset.productId;
     buy(parseInt(id));
+    console.log(cart);
   });
+});
+
+clearCartButton.addEventListener("click", () => {
+  cleanCart();
+  console.log(cart);
 });
 
 let cart = [];
@@ -27,7 +34,9 @@ const buy = (id) => {
 };
 
 // Exercise 2
-const cleanCart = () => {};
+const cleanCart = () => {
+  cart = [];
+};
 
 // Exercise 3
 const calculateTotal = () => {
