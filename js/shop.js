@@ -8,18 +8,20 @@ addButtons.forEach((element) => {
   element.addEventListener("click", (event) => {
     const id = event.target.dataset.productId;
     buy(parseInt(id));
-    console.log(cart);
+    calculateTotal();
+    console.log({ cart, total }, "Estat actual del cart i el total a pagar");
   });
 });
 
 clearCartButton.addEventListener("click", () => {
   cleanCart();
-  console.log(cart);
+  calculateTotal();
+  console.log({ cart, total }, "Estat actual del cart i el total a pagar");
 });
 
 let cart = [];
 
-const total = 0;
+let total = 0;
 
 const buy = (id) => {
   const productToAdd = products.find((product) => product.id === id);
@@ -40,7 +42,13 @@ const cleanCart = () => {
 
 // Exercise 3
 const calculateTotal = () => {
-  // Calculate total price of the cart using the "cartList" array
+  !cart.length
+    ? (total = 0)
+    : (total = cart.reduce(
+        (accumulator, currentValue) =>
+          accumulator + currentValue.totalWithoutDiscount,
+        0
+      ));
 };
 
 // Exercise 4
