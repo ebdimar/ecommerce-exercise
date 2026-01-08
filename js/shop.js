@@ -46,15 +46,13 @@ const calculateTotal = () => {
     ? (total = 0)
     : (total = cart.reduce(
         (accumulator, currentValue) =>
-          accumulator + currentValue.totalWithoutDiscount,
+          accumulator + currentValue.totalWithDiscount,
         0
       ));
 };
 
 // Exercise 4
-const applyPromotionsCart = () => {
-  // Apply promotions to each item in the array "cart"
-};
+//Moved to helpers
 
 // Exercise 5
 const printCart = () => {
