@@ -2,22 +2,22 @@ import { products } from "./products.js";
 import { addProduct, increaseQuantity } from "./helpers.js";
 
 const addButtons = document.querySelectorAll(".add-to-cart");
-const clearCartButton = document.getElementById("clean-cart");
+const clearCartButton = document.querySelector("#clean-cart");
+const openModalButton = document.querySelector(".cart-button");
 
 addButtons.forEach((element) => {
   element.addEventListener("click", (event) => {
     const id = event.target.dataset.productId;
     buy(parseInt(id));
-    calculateTotal();
-    console.log({ cart, total }, "Estat actual del cart i el total a pagar");
   });
 });
 
 clearCartButton.addEventListener("click", () => {
   cleanCart();
-  calculateTotal();
-  console.log({ cart, total }, "Estat actual del cart i el total a pagar");
+  printCart();
 });
+
+openModalButton.addEventListener("click", open_modal);
 
 let cart = [];
 
@@ -38,25 +38,38 @@ const buy = (id) => {
 // Exercise 2
 const cleanCart = () => {
   cart = [];
+  total = 0;
 };
 
 // Exercise 3
 const calculateTotal = () => {
-  !cart.length
-    ? (total = 0)
-    : (total = cart.reduce(
-        (accumulator, currentValue) =>
-          accumulator + currentValue.totalWithDiscount,
-        0
-      ));
+  total = cart.reduce(
+    (accumulator, currentItem) => accumulator + currentItem.totalWithDiscount,
+    0
+  );
 };
 
 // Exercise 4
-//Moved to helpers
+//Moved to helpers function applyPromotionInElement
 
 // Exercise 5
 const printCart = () => {
-  // Fill the shopping cart modal manipulating the shopping cart dom
+  const cartList = document.querySelector("#cart_list");
+  cartList.replaceChildren();
+  const totalElement = document.querySelector("#total_price");
+  cart.forEach((element) => {
+    cartList.insertAdjacentHTML(
+      "beforeend",
+      `<tr>
+            <th scope="row">${element.name}</th>
+            <td>$${element.price}</td>
+            <td>${element.quantity}</td>
+            <td>$${element.totalWithDiscount}</td>
+        </tr>`
+    );
+  });
+  calculateTotal();
+  totalElement.textContent = total;
 };
 
 // ** Nivell II **
@@ -64,6 +77,6 @@ const printCart = () => {
 // Exercise 7
 const removeFromCart = (id) => {};
 
-const open_modal = () => {
+function open_modal() {
   printCart();
-};
+}
