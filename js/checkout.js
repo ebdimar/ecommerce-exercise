@@ -1,28 +1,58 @@
-
 // Exercise 6
-const validate = () => {
-	let error = 0;
-	// Get the input fields
-	const fName = document.getElementById("fName");
-	const fEmail = document.getElementById("fEmail");
+const validate = (event) => {
+  event.preventDefault();
 
-	// Get the error elements
-	const errorName = document.getElementById("errorName");
-	const errorEmail = document.getElementById("errorEmail");  
-	
-	// Validate fields entered by the user: name, phone, password, and email
-	if(fName.value.trim() == ""){
-		error++;
-	}
+  let error = 0;
+  // Get the input fields
+  const fName = document.querySelector("#fName");
+  const fEmail = document.querySelector("#fEmail");
+  const fAddress = document.querySelector("#fAddress");
+  const fLastN = document.querySelector("#fLastN");
+  const fPassword = document.querySelector("#fPassword");
+  const fPhone = document.querySelector("#fPhone");
 
-	if(fEmail.value == ""){
-		error++;
-	}
-	 
-	if(error>0){
-		alert("Please fill in all required fields.");
-	}else{
-		alert("Form submitted successfully");
-	}
+  // Get the error elements
+  const errorName = document.querySelector("#errorName");
+  const errorEmail = document.querySelector("#errorEmail");
+  const errorAddress = document.querySelector("#errorAddress");
+  const errorLastN = document.querySelector("#errorLastN");
+  const errorPassword = document.querySelector("#errorPassword");
+  const errorPhone = document.querySelector("#errorPhone");
 
-}
+  const validations = [
+    { input: fName, errorData: errorName, regex: /^[A-Za-z]{3,}$/ },
+    {
+      input: fEmail,
+      errorData: errorEmail,
+      regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    },
+    {
+      input: fAddress,
+      errorData: errorAddress,
+      regex: /^[A-Za-z0-9\s,.-]{3,}$/,
+    },
+    { input: fLastN, errorData: errorLastN, regex: /^[A-Za-z]{3,}$/ },
+    {
+      input: fPassword,
+      errorData: errorPassword,
+      regex: /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{3,}$/,
+    },
+    { input: fPhone, errorData: errorPhone, regex: /^[0-9]{3,}$/ },
+  ];
+
+  validations.forEach((element) => {
+    if (!element.regex.test(element.input.value.trim())) {
+      error++;
+      element.input.style.borderColor = "red";
+      element.errorData.style.display = "block";
+    } else {
+      element.input.style.borderColor = "initial";
+      element.errorData.style.display = "none";
+    }
+  });
+
+  if (error > 0) {
+    return;
+  }
+  alert("Form submitted successfully");
+};
