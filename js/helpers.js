@@ -8,14 +8,27 @@ export const addProduct = (arrayElements, producToAdd) => {
     },
   ];
 };
-export const increaseQuantity = (arrayElements, elementId) => {
+export const updateProduct = (arrayElements, elementId, modifier) => {
+  if (modifier !== "increase" && modifier !== "decrease") {
+    throw new Error(
+      `Invalid modifier: ${modifier} is not allowed. The accepeted values are "increase" and "decrease"`
+    );
+  }
   return arrayElements.map((element) => {
     if (element.id !== elementId) return element;
-    const newQuantity = element.quantity + 1;
+
+    const newQuantity =
+      modifier === "increase" ? element.quantity + 1 : element.quantity - 1;
+
+    if (newQuantity < 1) {
+      throw new Error("The quantity can't be less than 1 in this function");
+    }
+
     const discountedElementPrice = applyPromotionInElement(
       element,
       newQuantity
     );
+
     return {
       ...element,
       quantity: newQuantity,
@@ -24,8 +37,13 @@ export const increaseQuantity = (arrayElements, elementId) => {
     };
   });
 };
+
 const applyPromotionInElement = (element, quantity) => {
   return element.offer && quantity >= element.offer.number
     ? element.price * (1 - element.offer.percent / 100)
     : element.price;
+};
+
+export const removeElement = (arrayElements, productId) => {
+  return arrayElements.filter((element) => element.id != productId);
 };

@@ -1,5 +1,5 @@
 import { products } from "./products.js";
-import { addProduct, increaseQuantity } from "./helpers.js";
+import { addProduct, updateProduct, removeElement } from "./helpers.js";
 
 const addButtons = document.querySelectorAll(".add-to-cart");
 const clearCartButton = document.querySelector("#clean-cart");
@@ -16,8 +16,15 @@ clearCartButton.addEventListener("click", () => {
   cleanCart();
   printCart();
 });
+const cartList = document.querySelector("#cart_list");
+cartList.addEventListener("click", (event) => {
+  if (event.target.classList.contains("decrease-quantity")) {
+    const productId = event.target.dataset.productId;
+    decreaseQuantity(productId);
+  }
+});
 
-openModalButton.addEventListener("click", open_modal);
+openModalButton.addEventListener("click", () => open_modal());
 
 let cart = [];
 
@@ -25,13 +32,14 @@ let total = 0;
 
 const buy = (id) => {
   const productToAdd = products.find((product) => product.id === id);
+
   if (!cart.length) {
     cart = addProduct(cart, productToAdd);
     return;
   }
   const productInCart = cart.some((element) => element.id === id);
   productInCart
-    ? (cart = increaseQuantity(cart, id))
+    ? (cart = updateProduct(cart, id, "increase"))
     : (cart = addProduct(cart, productToAdd));
 };
 
@@ -54,7 +62,6 @@ const calculateTotal = () => {
 
 // Exercise 5
 const printCart = () => {
-  const cartList = document.querySelector("#cart_list");
   cartList.replaceChildren();
   const totalElement = document.querySelector("#total_price");
   cart.forEach((element) => {
@@ -63,11 +70,12 @@ const printCart = () => {
       `<tr>
             <th scope="row">${element.name}</th>
             <td>$${element.price}</td>
-            <td>${element.quantity}</td>
+            <td>${element.quantity}<button class="decrease-quantity" data-product-id=${element.id}>-</button></td>
             <td>$${element.totalWithDiscount}</td>
         </tr>`
     );
   });
+
   calculateTotal();
   totalElement.textContent = total;
 };
@@ -75,8 +83,14 @@ const printCart = () => {
 // ** Nivell II **
 
 // Exercise 7
-const removeFromCart = (id) => {};
-
-function open_modal() {
+export const decreaseQuantity = (productId) => {
+  const completeElement = cart.find((element) => element.id == productId);
+  completeElement && completeElement.quantity > 1
+    ? (cart = updateProduct(cart, parseInt(productId), "decrease"))
+    : (cart = removeElement(cart, productId));
   printCart();
-}
+};
+
+const open_modal = () => {
+  printCart();
+};
