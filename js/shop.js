@@ -1,14 +1,20 @@
 import { products } from "./products.js";
-import { addProduct, updateProduct, removeElement } from "./helpers.js";
+import {
+  addProduct,
+  updateProduct,
+  removeElement,
+  countProducts,
+} from "./helpers.js";
 
 const addButtons = document.querySelectorAll(".add-to-cart");
 const clearCartButton = document.querySelector("#clean-cart");
 const openModalButton = document.querySelector(".cart-button");
-
+const countProductElement = document.querySelector("#count_product");
 addButtons.forEach((element) => {
   element.addEventListener("click", (event) => {
     const id = event.target.dataset.productId;
     buy(parseInt(id));
+    printCountProduct();
   });
 });
 
@@ -21,6 +27,7 @@ cartList.addEventListener("click", (event) => {
   if (event.target.classList.contains("decrease-quantity")) {
     const productId = event.target.dataset.productId;
     decreaseQuantity(productId);
+    printCountProduct();
   }
 });
 
@@ -93,4 +100,8 @@ export const decreaseQuantity = (productId) => {
 
 const open_modal = () => {
   printCart();
+};
+
+const printCountProduct = () => {
+  countProductElement.textContent = countProducts(cart);
 };
