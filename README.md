@@ -1,66 +1,46 @@
-# Sprint 2 IT Academy | Shop
+# Eccomerce
 
-## Introduction
+Ecommerce con funcionalidad de añadir y quitar productos del carrito. Visualizar el carrito y rellenar el formulario del checkout.
 
-A company in the e-commerce sector has asked us for a web application that allows them to offer the purchase of their products through the internet.
+## Vistas
 
-You will be in charge of setting up an initial demo version of the application for the client: management of the shopping cart and the application of the promotions on the final price. You have 1 week to finish this part of sprint (2.2).
+### Página principal
 
-<br>
+![Vista Desktop](/images/ecommerce.gif)
 
-## Requirements
+### Checkout
 
+![Vista Mobile](/images/checkout-form.gif)
 
-1. Clone this repo
-```bash
-$ git clone https://github.com/IT-Academy-BCN/starter-code-frontend-shop
+## Características
+
+- **Añadir productos al carrito** Pueden añadirse productos al carrito que será visibles cuando se haga click al botón del carrito de la esquina superior derecha.
+- **Eliminar productos del carito** Cuando se abre el modal del carrito al hacer click en el botón superior derecha, a lado de la cantidad de productos hay un botón de quitar producto, se reducirá el producto en uno cada vez que se haga click.
+- **Contador de productos** En el botón del carrito se indicará en todo momento el número de productos que hay en el carrito tanto en la página principal como en la página del checkout.
+- **Validación de formulario** Al hacer click en el botón checkout del modal del carrito se podrá acceder a la página del checkout donde se podrá validar el formulario con la condicioes del formulario.
+- **Local storage** Se guarda en localStorage la información del carrito.
+
+## Descarga del proyecto
+
+```
+git clone https://github.com/ebdimar/ecommerce-exercise
 ```
 
-2. Unlink your repo from the itacademy repository.
-(Explanation: You have to upload the code to your GitHub repository, not to the IT Academy. That's why you have to unlink your project from IT Academy GitHub with the following command)
+## Modo de uso
 
-```bash
-$ git remote rm origin
-```
+Una vez descargado el proyecto se puede ver el ecommerce mediante el uso de un servidor o, en el caso de usar visual studio code, mediante una extensión live server.
 
-3. Link your repo to the repository you have to create in your github account
-(Explanation: Now your project is not linked to any remote repository. In order to upload your code, you have to link your project to the new repository created on github.com using the following command)
+## Observaciones
 
-```bash
-$ git remote add origin <your repo name!>
-```
+El link en el nombre de la app que está en la esquina superior derecha no funciona correctamente en local, ya que el link se ha indicado para que funcione el live en el linke que está indicado en la parte de abajo del readme.
 
-<br>
+## Tecnologías
 
-## Submission
+- HTML5
+- CSS3
+- Bootstrap
+- JavaScript vanilla
 
-1. It is necessary to upload each exercise in a separate commit. The commit name must clearly indicate its content.
+## Demo
 
-2. Upload the link to your GitHub repository to the virtual campus, enabling your mentor to review and provide feedback.
-
-
-
-<br>
-
-## Introduction
-
-The statement of the exercise is available on the virtual campus.
-
-<br>
-
-
-## Instructions
-
-You have the following indications from the frontend manager:
-
-- You have prepared the base of the project on which you will work: https://github.com/IT-Academy-BCN/starter-code-frontend-shop
-
-- The base of the project on which you will work has already created all the files, and an initial version of the interface, so you can focus on programming the logic.
-
-- As at the moment we don't consume data from a server using an API, we will work with hardcoded data in the application. For the moment we will implement the logic using a small group of 9 products divided in 3 sections.
-
-- Except for the last level, showing the result of the functions by console is enough.
-
-- The logic to implement will be placed in the src/grocery.js and src/checkout.js files. You will see that the built in functions have already been created for you to implement them.
-
-- It is forbidden to copy the code, since this way you don't learn anything. Furthermore, as you can see, the second release of sprint 5 is a mini-level test with the mentor, in which you will have to demonstrate live that you have acquired the javascript concepts. Don't worry, if you work on the releases you won't have any problems.
+[Ver demo en vivo](https://ebdimar.github.io/ecommerce-exercise/)
