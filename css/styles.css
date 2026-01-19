@@ -12278,6 +12278,7 @@ fieldset:disabled .btn {
   margin-bottom: 0.5rem;
 }
 
-h1 {
+.navbar-brand h1 {
   font-size: 1.5rem;
+  margin-bottom: 0;
 }
