@@ -38,13 +38,6 @@ export const updateProduct = (arrayElements, elementId, modifier) => {
   });
 };
 
-export const countProducts = (arrayElements) => {
-  return arrayElements.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.quantity,
-    0
-  );
-};
-
 const applyPromotionInElement = (element, quantity) => {
   return element.offer && quantity >= element.offer.number
     ? element.price * (1 - element.offer.percent / 100)
